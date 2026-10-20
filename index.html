@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="A simple daily workout planner based on your goals, equipment and schedule.">
+<meta name="theme-color" content="#4A8FE7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Workout">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Today's Workout</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -55,6 +63,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 .wd.sel{background:var(--soft)}
 .wd.sel span{color:var(--ink);font-weight:700}
 .preview .chk{opacity:.35}
+.down{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:none;color:var(--muted);display:grid;place-items:center;padding:0}
+.down svg{width:20px;height:20px}
+.down:hover,.down:focus-visible{color:var(--warn);border-color:var(--warn)}
+.swapnote{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--soft);padding:10px 12px;border-radius:10px;font-size:14px;margin:8px 0}
+.swapnote>span{min-width:0}
+.swaprow{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)}
+.swaprow:first-of-type{border-top:0}
 .wd i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:14px;border:1.5px solid var(--line)}
 .wd.plan i{border-color:var(--accent);color:var(--accent)}
 .wd.done i{background:var(--good);border-color:var(--good);color:var(--on-good);font-weight:700}
@@ -74,7 +89,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .note{font-size:14px;color:var(--muted);margin-bottom:6px}
 .phase{margin:18px 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .steps{list-style:none;margin:0;padding:0}
-.step{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--line);align-items:start}
+.step{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;padding:12px 0;border-top:1px solid var(--line);align-items:start}
 .step:first-child{border-top:0}
 .chk{width:44px;height:44px;border-radius:50%;border:2px solid var(--accent);background:transparent;display:grid;place-items:center;color:var(--on-good);padding:0}
 .chk svg{width:22px;height:22px;opacity:0}
@@ -418,7 +433,7 @@ function stepFrom(e,sets,rest,mul,L){
   const g=gearOf(e),swap=t=>g==='kettlebell'?t.replace(/dumbbell/gi,m=>m[0]==='D'?'Kettlebell':'kettlebell'):t;
   const en=swap(e.n);
   const q=e.f==='yoga'?'how to do '+en+' yoga pose for beginners':e.f==='pilates'?'how to do '+en+' pilates for beginners':e.f==='mobility'?'how to do '+en+' stretch':'how to do '+en+' proper form';
-  return {id:e.id,phase:'main',name:en,cue:swap(e.c),q,gear:g,scheme:(sets>1?sets+' × ':'')+body+side,rest:sets>1?rest:0,sec};
+  return {id:e.id,phase:'main',name:en,cue:swap(e.c),q,gear:g,scheme:(sets>1?sets+' × ':'')+body+side,rest:sets>1?rest:0,sec,ex:e.last?null:e.id,exf:e.f,m:{sets,rest,mul}};
 }
 function fill(list,sets,rest,mul,L,budget,force){
   const steps=[];let used=0;
@@ -598,6 +613,7 @@ function makeWorkout(p,kind,off){
   else if(kind==='dance')w=danceWorkout(p,L);
   else if(kind==='yoga'||kind==='pilates')w=orderedWorkout(kind,p,L,lo,off);
   else w=strengthWorkout(p,kind,off,L,lo);
+  applyDislikes(w,p,L,lo);
   const total=w.steps.reduce((a,s)=>a+s.sec,0);
   w.min=Math.max(5,Math.round(total/60));
   w.title=w.title||((kind==='running'&&lo)?'Power-walk intervals':META[kind][0]);
@@ -608,6 +624,24 @@ function makeWorkout(p,kind,off){
   w.gear=[...new Set(w.steps.map(s=>s.gear).filter(Boolean))];
   w.sig=kind+':'+w.min+':'+w.steps.length;
   return w;
+}
+function pickReplacement(orig,p,L,lo,bad,used){
+  const pool=LIB.filter(e=>e.f===orig.f&&!e.last&&e.id!==orig.id&&!bad.has(e.id)&&!used.has(e.id)&&eligible(e,p,L,lo));
+  if(!pool.length)return null;
+  const ranked=rank(pool,L,p);
+  return ranked.map((e,i)=>({e,s:(e.d>orig.d?20:0)+Math.abs(e.d-orig.d)*3+i*0.05})).sort((a,b)=>a.s-b.s)[0].e;
+}
+function applyDislikes(w,p,L,lo){
+  const bad=new Set(p.disliked||[]);if(!bad.size)return;
+  const used=new Set(w.steps.map(s=>s.ex).filter(Boolean));
+  w.steps=w.steps.map(st=>{
+    if(!st.ex||!bad.has(st.ex))return st;
+    const orig=LIB.find(e=>e.id===st.ex),rep=orig&&pickReplacement(orig,p,L,lo,bad,used);
+    if(!rep)return st;
+    used.add(rep.id);
+    const ns=stepFrom(rep,st.m.sets,st.m.rest,st.m.mul,L);
+    ns.phase=st.phase;ns.swappedFrom=orig.n;return ns;
+  });
 }
 function planFor(p){
   const days=[...p.days].sort((a,b)=>a-b),tmpl=TEMPLATES[days.length];
@@ -633,14 +667,15 @@ function firstOccur(dayIdx,hh,mm){
   if(d<now)d=addDays(d,7);
   return d;
 }
+const icsEsc=t=>String(t).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');
 function buildICS(p,plan){
   const hm=p.time.split(':').map(Number);
   const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
-  const L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Todays Workout//EN','CALSCALE:GREGORIAN'];
+  const L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Todays Workout//EN','CALSCALE:GREGORIAN','X-WR-CALNAME:Workouts'];
   [...p.days].sort((a,b)=>a-b).forEach(d=>{
     const s=firstOccur(d,hm[0],hm[1]),e=new Date(s.getTime()+p.len*60000),w=plan[d];
     L.push('BEGIN:VEVENT','UID:workout-'+d+'@todays-workout','DTSTAMP:'+stamp,'DTSTART:'+icsDate(s),'DTEND:'+icsDate(e),
-      'RRULE:FREQ=WEEKLY;BYDAY='+BYDAY[d],'SUMMARY:Workout - '+w.title,'DESCRIPTION:Open Todays Workout for the full session.',
+      'RRULE:FREQ=WEEKLY;BYDAY='+BYDAY[d],'SUMMARY:'+icsEsc('Workout - '+w.title),'DESCRIPTION:Open Todays Workout for the full session.',
       'BEGIN:VALARM','TRIGGER:-PT15M','ACTION:DISPLAY','DESCRIPTION:Workout starts in 15 minutes','END:VALARM','END:VEVENT');
   });
   L.push('END:VCALENDAR');
@@ -658,10 +693,11 @@ function gcalLink(p){
 const fmt12=t=>{const a=t.split(':').map(Number),h=a[0]%12||12;return h+':'+pad(a[1])+' '+(a[0]<12?'AM':'PM');};
 const minus15=t=>{const a=t.split(':').map(Number),m=(a[0]*60+a[1]-15+1440)%1440;return pad(Math.floor(m/60))+':'+pad(m%60);};
 function calTools(p){
-  return '<a class="btn block" id="gcal" href="'+esc(gcalLink(p))+'" target="_blank" rel="noopener">Add to Google Calendar</a>'+
+  return (HOSTED?'<button type="button" class="btn block" data-act="dlics">Download calendar file</button><p class="hint">Opens in Apple Calendar, Outlook and most calendar apps. It adds weekly events on your workout days only, each with a 15-minute alert.</p>':'')+
+    '<a class="btn'+(HOSTED?' ghost':'')+' block" id="gcal" href="'+esc(gcalLink(p))+'" target="_blank" rel="noopener">Add to Google Calendar</a>'+
     '<p class="hint">Google Calendar opens with your weekly repeat and time already filled in. Its link cannot set the alert, so check that the notification says 15 minutes before and change it if not.</p>'+
-    '<details><summary>Apple Calendar, Outlook or other</summary><p class="hint" style="margin:6px 0">This text repeats on your days and already includes the 15-minute alert. It is easiest on a computer: copy it, paste it into a plain text file named workout.ics, then open that file.</p>'+
-    '<button type="button" class="btn ghost block" data-act="copyics">Copy calendar text</button><textarea id="icsbox" readonly hidden></textarea><p class="hint" id="copied"></p></details>';
+    (HOSTED?'':'<details><summary>Apple Calendar, Outlook or other</summary><p class="hint" style="margin:6px 0">This text repeats on your days and already includes the 15-minute alert. It is easiest on a computer: copy it, paste it into a plain text file named workout.ics, then open that file.</p>'+
+    '<button type="button" class="btn ghost block" data-act="copyics">Copy calendar text</button><textarea id="icsbox" readonly hidden></textarea><p class="hint" id="copied"></p></details>');
 }
 
 /* ---------- messages ---------- */
@@ -676,6 +712,7 @@ const nm=()=>(state&&state.profile&&state.profile.name)||'friend';
 const say=m=>String(m).replace(/\{n\}/g,nm());
 
 /* ---------- state ---------- */
+const HOSTED=true; // set to true by the build step for the GitHub Pages copy, where file downloads work
 const KEY='todays-workout-v1';
 let memCopy=null,storageOk=true;
 function loadState(){
@@ -688,8 +725,8 @@ function save(){
   try{localStorage.setItem(KEY,s);}catch(e){storageOk=false;}
 }
 let planCache=null;
-const getPlan=()=>planCache||(planCache=planFor(state.profile));
-let tab='today',draft=null,tick=null,toastT=null,viewDay=null,calMode='first';
+const getPlan=()=>planCache||(planCache=planFor(Object.assign({},state.profile,{disliked:state.disliked||[]})));
+let tab='today',draft=null,tick=null,toastT=null,viewDay=null,calMode='first',lastSwap=null;
 
 /* ---------- derived numbers ---------- */
 function weekMinutes(mon){let t=0,c=0,est=false;for(let i=0;i<7;i++){const l=state.log[key(addDays(mon,i))];if(l){t+=l.min;c++;if(l.est)est=true;}}return {t,c,est};}
@@ -728,7 +765,26 @@ function confetti(){
 const CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
 
 /* ---------- render: today ---------- */
-function stepsHtml(w,s,readonly){
+const THUMB='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>';
+function downBtn(st){return '<button type="button" class="down" data-act="down" data-id="'+esc(st.ex)+'" aria-label="Swap out '+esc(st.name)+': too hard or cannot do it" title="Too hard or can’t do it? Swap it">'+THUMB+'</button>';}
+function swapNote(sel){
+  if(lastSwap&&lastSwap.day===sel)return '<div class="swapnote"><span>Swapped <b>'+esc(lastSwap.from)+'</b> for <b>'+esc(lastSwap.to)+'</b> on every day that includes it.</span><button type="button" class="linkbtn" data-act="undoswap">Undo</button></div>';
+  return '<p class="hint" style="margin:6px 0">Too hard, or can’t do a move? Tap the thumbs-down next to it to swap it for another.</p>';
+}
+function swappedCard(){
+  const ids=(state.disliked||[]).filter(id=>LIB.some(e=>e.id===id));
+  if(!ids.length)return '';
+  return '<div class="card stack"><h3>Swapped-out exercises</h3><p class="muted small">These are replaced in your plan. Bring one back any time.</p>'+
+    ids.map(id=>'<div class="swaprow"><span>'+esc(LIB.find(x=>x.id===id).n)+'</span><button type="button" class="linkbtn" data-act="restore" data-id="'+esc(id)+'">Bring back</button></div>').join('')+'</div>';
+}
+function changeDislikes(fn){
+  const ti=dow(new Date()),s0=todaySession(getPlan()[ti]);
+  fn();planCache=null;
+  const ta=getPlan()[ti];
+  if(s0&&ta){s0.sig=ta.sig;s0.checked=s0.checked.filter(x=>ta.steps.some(st=>st.id===x));}
+  save();
+}
+function stepsHtml(w,s,readonly,swap){
   let html='<ul class="steps">',last='';
   const labels={warm:'Warm-up',main:'Main set',finish:'Finisher',cool:'Cool-down'};
   const hasPhases=w.steps.some(x=>x.phase!=='main');
@@ -736,8 +792,8 @@ function stepsHtml(w,s,readonly){
     if(hasPhases&&st.phase!==last){html+='</ul><div class="phase">'+labels[st.phase]+'</div><ul class="steps">';last=st.phase;}
     const on=s&&s.checked.includes(st.id),locked=!s&&!readonly;
     html+='<li class="step'+(on?' on':'')+(locked?' locked':'')+'"><button type="button" class="chk" data-act="step" data-id="'+esc(st.id)+'" aria-pressed="'+(!!on)+'" aria-label="Mark '+esc(st.name)+' complete"'+(readonly?' disabled':'')+'>'+CHECK+'</button><div>'+
-      '<div class="sname">'+esc(st.name)+'</div><div><span class="scheme">'+esc(st.scheme)+'</span>'+(st.rest?'<span class="rest">rest '+st.rest+' sec</span>':'')+'</div>'+
-      '<div class="cue">'+esc(st.cue)+'</div><a class="how" href="https://www.youtube.com/results?search_query='+encodeURIComponent(st.q||('how to do '+st.name))+'" target="_blank" rel="noopener">▶ Watch how on YouTube</a></div></li>';
+      '<div class="sname">'+esc(st.name)+'</div><div><span class="scheme">'+esc(st.scheme)+'</span>'+(st.rest?'<span class="rest">rest '+st.rest+' sec</span>':'')+(st.swappedFrom?'<span class="rest">swapped in for '+esc(st.swappedFrom)+'</span>':'')+'</div>'+
+      '<div class="cue">'+esc(st.cue)+'</div><a class="how" href="https://www.youtube.com/results?search_query='+encodeURIComponent(st.q||('how to do '+st.name))+'" target="_blank" rel="noopener">▶ Watch how on YouTube</a></div>'+(swap&&st.ex?downBtn(st):'')+'</li>';
   });
   return html+'</ul>';
 }
@@ -767,7 +823,7 @@ function renderToday(){
       h+='<h2>Rest day 🧘</h2><p class="muted" style="margin-top:8px">'+(log?'You still logged '+log.min+' min. Bonus points! 🌟':'No workout planned.')+'</p>';
     }else{
       h+='<h2>'+esc(w.title)+'</h2><p class="tag">'+esc(w.tag)+'</p><div class="meta"><span class="pill">'+w.min+' min</span><span class="pill">'+w.level+'</span>'+
-        (log?'<span class="pill" style="background:var(--good-soft)">Done · '+log.min+' min ✓</span>':(past&&sd>=created)?'<span class="pill">Missed</span>':'')+'</div><p class="note">'+esc(w.note)+'</p>'+stepsHtml(w,null,true);
+        (log?'<span class="pill" style="background:var(--good-soft)">Done · '+log.min+' min ✓</span>':(past&&sd>=created)?'<span class="pill">Missed</span>':'')+'</div><p class="note">'+esc(w.note)+'</p>'+swapNote(sel)+stepsHtml(w,null,true,!log);
     }
     h+='<div class="cta"><button type="button" class="btn ghost block" data-act="day" data-day="'+dow(now)+'">Back to today</button></div></section>';
   }else if(!w){
@@ -788,7 +844,7 @@ function renderToday(){
       '<div class="meta"><span class="pill">'+w.min+' min</span><span class="pill">'+w.level+'</span>'+(p.age>=60?'<span class="pill">Joint-friendly</span>':'')+'<span class="pill">'+(w.gear&&w.gear.length?esc(w.gear.map(g=>EQLABEL[g]||g).slice(0,2).join(' + ')):'Bodyweight')+'</span></div>'+
       '<p class="note">'+esc(w.note)+'</p>';
     if(s){h+='<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="'+total+'" aria-valuenow="'+dn+'"><b style="width:'+Math.round(dn/total*100)+'%"></b></div><p class="small muted" style="margin-top:6px">'+dn+' of '+total+' done</p>';}
-    h+=stepsHtml(w,s,false);
+    h+=swapNote(sel)+stepsHtml(w,s,false,true);
     if(!s)h+='<div class="cta"><button type="button" class="btn block" data-act="start">Start workout ⏱️</button><button type="button" class="linkbtn" data-act="quick">Already did it? Mark done</button></div>';
     h+='</section><p class="muted small">This week so far: <strong>'+wm.t+' min</strong></p>';
   }
@@ -849,7 +905,7 @@ function renderProfile(){
     h+='<div class="stack" style="margin-top:16px"><div class="card stack"><h3>Workout reminders</h3>'+
       '<p class="muted small">Saved plan: '+state.profile.days.slice().sort((a,b)=>a-b).map(i=>DAYS[i]).join(', ')+' at '+fmt12(state.profile.time)+', with a reminder 15 minutes before.</p>'+
       '<button type="button" class="btn ghost block" data-act="calopen">Set up calendar reminders</button></div>'+
-      '<div class="card stack"><h3>Your data</h3><p class="muted small">Your profile and progress are saved only in this browser on this device.</p>'+
+      swappedCard()+'<div class="card stack"><h3>Your data</h3><p class="muted small">Your profile and progress are saved only in this browser on this device.</p>'+
       '<button type="button" class="btn ghost block" data-act="reset" id="resetbtn">Erase my data</button></div></div>';
   }
   $('#view').innerHTML=h;
@@ -909,7 +965,35 @@ function complete(w,min,est){
   tab='today';viewDay=null;render();confetti();toast(pick(ENC_DONE));window.scrollTo(0,0);
 }
 const actions={
-  tab(el){tab=el.dataset.tab;viewDay=null;if(tab!=='profile')draft=null;render();window.scrollTo(0,0);},
+  tab(el){tab=el.dataset.tab;viewDay=null;lastSwap=null;if(tab!=='profile')draft=null;render();window.scrollTo(0,0);},
+  down(el){
+    const id=el.dataset.id;state.disliked=state.disliked||[];
+    if(state.disliked.includes(id))return;
+    const day=viewDay===null?dow(new Date()):viewDay,before=getPlan()[day];
+    const idx=before.steps.findIndex(st=>st.ex===id),oldName=idx>=0?before.steps[idx].name:'';
+    changeDislikes(()=>state.disliked.push(id));
+    const after=getPlan()[day];
+    if(after.steps.some(st=>st.ex===id)){changeDislikes(()=>state.disliked.pop());toast('No swap is available for this one. Check your injuries and equipment in Profile.');return;}
+    lastSwap={id,day,from:oldName,to:idx>=0?after.steps[idx].name:'another move'};
+    render();toast('Swapped it out 🔄');
+  },
+  undoswap(){
+    if(!lastSwap)return;const id=lastSwap.id;
+    changeDislikes(()=>{state.disliked=(state.disliked||[]).filter(x=>x!==id);});
+    lastSwap=null;render();toast('Swap undone');
+  },
+  restore(el){
+    const id=el.dataset.id;
+    changeDislikes(()=>{state.disliked=(state.disliked||[]).filter(x=>x!==id);});
+    render();toast('Brought back ✅');
+  },
+  dlics(){
+    const blob=new Blob([buildICS(state.profile,getPlan())],{type:'text/calendar;charset=utf-8'});
+    const url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='workout-schedule.ics';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),4000);
+    toast('Calendar file ready. Open it to add the events.');
+  },
   calopen(){calMode='update';draft=null;tab='calendar';render();window.scrollTo(0,0);},
   calcontinue(){tab='today';viewDay=null;render();window.scrollTo(0,0);},
   day(el){const d=Number(el.dataset.day);viewDay=d===dow(new Date())?null:d;render();},
@@ -941,7 +1025,7 @@ const actions={
   },
   reset(el){
     if(el.dataset.armed!=='1'){el.dataset.armed='1';el.textContent='Tap again to erase everything';return;}
-    state={profile:null,log:{},session:null,dismissed:null};planCache=null;draft=null;save();tab='profile';render();
+    state={profile:null,log:{},session:null,dismissed:null,disliked:[]};lastSwap=null;planCache=null;draft=null;save();tab='profile';render();
   }
 };
 function readForm(){
