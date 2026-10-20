@@ -7,13 +7,13 @@
 <meta name="theme-color" content="#4A8FE7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Workout">
+<meta name="apple-mobile-web-app-title" content="Sweat &amp; Smile">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Today's Workout</title>
+<title>Sweat &amp; Smile</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,6 +70,53 @@ button{font:inherit;color:inherit;cursor:pointer}
 .swapnote>span{min-width:0}
 .swaprow{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)}
 .swaprow:first-of-type{border-top:0}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.brand img{width:56px;height:56px;border-radius:14px;flex:none}
+.bname{font-family:var(--f-display);font-weight:800;font-size:26px;letter-spacing:-.02em;line-height:1.1}
+.btag{color:var(--muted);font-size:14px}
+.goal{display:flex;flex-direction:column;gap:10px}
+.dots{display:flex;gap:8px;flex-wrap:wrap}
+.gd{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:16px}
+.gd.on{background:var(--good);border-color:var(--good);color:var(--on-good)}
+.gd.pass{border-color:var(--accent);background:var(--soft)}
+.wd.pass i{border-color:var(--accent);background:var(--soft)}
+.level{background:var(--soft);border-color:transparent;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.mood{margin-top:14px}
+.moods{display:flex;gap:8px;margin-top:6px}
+.mbtn{flex:1;min-height:52px;font-size:28px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);padding:0}
+.mbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
+.music{display:inline-flex;gap:6px;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;background:var(--soft);color:var(--ink);font-weight:700;font-size:15px;text-decoration:none}
+.tog{min-height:44px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font-weight:600;font-size:15px}
+.tog[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
+.win{border-radius:16px;padding:18px;background:linear-gradient(135deg,#2845F5,#6A3FD8);color:#fff;display:flex;flex-direction:column;gap:8px}
+.win .eyebrow{color:#DCE2FF}
+.bubble{background:var(--soft);border-radius:14px;padding:12px 14px}
+.sharebtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sharebtns .btn{min-height:46px;padding:0 10px;font-size:15px;text-decoration:none}
+.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 8px}
+.bd{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;min-width:0}
+.bd i{font-style:normal;font-size:28px;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--soft)}
+.bd b{font-size:13px;line-height:1.2}
+.bd span{font-size:11px;color:var(--muted);line-height:1.25}
+.bd.lock i{filter:grayscale(1);opacity:.4}
+.bd.lock b{color:var(--muted)}
+.trow{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.trow:first-child{border-top:0}
+.temo{font-size:28px}
+.tbig{font-family:var(--f-mono);font-size:64px;font-weight:700;text-align:center;letter-spacing:-.03em}
+.tcount{min-height:130px;font-size:24px;border-radius:20px}
+.safety{background:var(--soft);border-left:4px solid var(--warn);padding:12px;border-radius:10px;font-size:14px}
+.focus{border:2px solid var(--accent);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px;background:var(--surface);margin-top:14px}
+.focus h2{font-size:30px}
+body.hf{font-size:20px}
+body.hf .sname{font-size:24px}
+body.hf .scheme{font-size:18px}
+body.hf .cue{font-size:18px}
+body.hf .btn{min-height:60px;font-size:20px}
+body.hf .chk{width:56px;height:56px}
+body.hf .step{grid-template-columns:56px minmax(0,1fr) auto}
+body.hf .top h1{font-size:40px}
+body.hf .nav button{font-size:14px}
 .wd i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:14px;border:1.5px solid var(--line)}
 .wd.plan i{border-color:var(--accent);color:var(--accent)}
 .wd.done i{background:var(--good);border-color:var(--good);color:var(--on-good);font-weight:700}
@@ -423,9 +470,10 @@ function schemeFor(p,L){
   const mul=p.goals.includes('endurance')&&!s?1.25:1;
   return {mode,sets,rest,mul,cardio:c};
 }
-function stepFrom(e,sets,rest,mul,L){
-  const v=e.v[L-1];let reps=null,work;
-  if(e.t==='r'){reps=Math.max(4,Math.round(v*mul));work=reps*(e.u?2:1)*3.5;}
+function stepFrom(e,sets,rest,mul,L,pa){
+  pa=pa||0;
+  const v0=e.v[L-1],v=e.t==='r'?v0:Math.max(10,v0+5*pa);let reps=null,work;
+  if(e.t==='r'){reps=Math.max(4,Math.round(v*mul)+pa);work=reps*(e.u?2:1)*3.5;}
   else{work=v*(e.u?2:1);}
   const sec=sets*work+(sets-1)*rest;
   const side=e.u?' each side':'';
@@ -616,6 +664,8 @@ function makeWorkout(p,kind,off){
   applyDislikes(w,p,L,lo);
   const total=w.steps.reduce((a,s)=>a+s.sec,0);
   w.min=Math.max(5,Math.round(total/60));
+  applyProgression(w,p,L);
+  w.pk=kind;
   w.title=w.title||((kind==='running'&&lo)?'Power-walk intervals':META[kind][0]);
   w.tag=w.tag||META[kind][1];
   w.level=['','Beginner','Intermediate','Advanced'][L];
@@ -641,6 +691,15 @@ function applyDislikes(w,p,L,lo){
     used.add(rep.id);
     const ns=stepFrom(rep,st.m.sets,st.m.rest,st.m.mul,L);
     ns.phase=st.phase;ns.swappedFrom=orig.n;return ns;
+  });
+}
+function applyProgression(w,p,L){
+  const pa=p.progAdd||0;if(!pa)return;
+  w.steps=w.steps.map(st=>{
+    if(!st.ex||!st.m)return st;
+    const e=LIB.find(x=>x.id===st.ex);if(!e)return st;
+    const ns=stepFrom(e,st.m.sets,st.m.rest,st.m.mul,L,pa);
+    ns.phase=st.phase;if(st.swappedFrom)ns.swappedFrom=st.swappedFrom;return ns;
   });
 }
 function planFor(p){
@@ -725,20 +784,33 @@ function save(){
   try{localStorage.setItem(KEY,s);}catch(e){storageOk=false;}
 }
 let planCache=null;
-const getPlan=()=>planCache||(planCache=planFor(Object.assign({},state.profile,{disliked:state.disliked||[]})));
+let planWk='';
+function getPlan(){
+  const wk=key(mondayOf(new Date()));
+  if(planWk!==wk){planWk=wk;planCache=null;}
+  return planCache||(planCache=planFor(Object.assign({},state.profile,{disliked:state.disliked||[],progAdd:levelInfo().add})));
+}
 let tab='today',draft=null,tick=null,toastT=null,viewDay=null,calMode='first',lastSwap=null;
 
 /* ---------- derived numbers ---------- */
 function weekMinutes(mon){let t=0,c=0,est=false;for(let i=0;i<7;i++){const l=state.log[key(addDays(mon,i))];if(l){t+=l.min;c++;if(l.est)est=true;}}return {t,c,est};}
-function streak(){
-  const p=state.profile,today=startOfDay(new Date()),created=parseKey(p.created||key(today));
-  let n=state.log[key(today)]?1:0;
-  for(let i=1;i<400;i++){
-    const d=addDays(today,-i);if(d<created)break;
-    const l=state.log[key(d)];
-    if(l)n++;else if(p.days.includes(dow(d)))break;
+const weekGoal=()=>Math.max(1,state.profile.days.length);
+const restUsed=mon=>!!(state.rest&&state.rest[key(mon)]);
+function goalMet(mon){const c=weekMinutes(mon).c;return c>=1&&c>=weekGoal()-(restUsed(mon)?1:0);}
+function goalStats(){
+  const p=state.profile,cur=mondayOf(new Date()),first=mondayOf(parseKey(p.created||key(cur)));
+  let run=0,best=0,any=false;
+  for(let d=first;d<=cur;d=addDays(d,7)){
+    if(goalMet(d)){run++;any=true;best=Math.max(best,run);}else if(d<cur)run=0;
   }
-  return n;
+  return {cur:run,best,any};
+}
+const weeksOnGoal=()=>goalStats().cur;
+function levelInfo(){
+  const p=state.profile;if(!p)return {idx:0,cyc:0,c:0,add:0};
+  const a=mondayOf(parseKey(p.created||key(new Date()))),b=mondayOf(new Date());
+  const idx=Math.max(0,Math.round((b-a)/604800000)),cyc=Math.floor(idx/4),c=idx%4;
+  return {idx,cyc,c,add:Math.min(cyc*2,6)+[0,1,2,-2][c]};
 }
 function totalAll(){return Object.values(state.log).reduce((a,l)=>a+l.min,0);}
 function fmtClock(ms){const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60),r=s%60;return (h?h+':'+pad(m):m)+':'+pad(r);}
@@ -748,6 +820,195 @@ function todaySession(w){
   return null;
 }
 const elapsed=s=>s.acc+(s.runStart?Date.now()-s.runStart:0);
+
+/* ---------- feature block: badges, share, tests, mood, music, hands-free ---------- */
+let testing=null,restEnd=0,restLabel='',restSay='',hfSets={},actx=null,shareIdx=Math.floor(Math.random()*5);
+const nWork=()=>Object.keys(state.log).length;
+const testsOf=id=>(state.tests&&state.tests[id])||[];
+const testCount=()=>Object.values(state.tests||{}).reduce((a,l)=>a+l.length,0);
+function hasPB(){return Object.values(state.tests||{}).some(a=>a.some((x,i)=>i>0&&x.v>Math.max(...a.slice(0,i).map(y=>y.v))));}
+function maxWeekMins(){const by={};Object.keys(state.log).forEach(k=>{const m=key(mondayOf(parseKey(k)));by[m]=(by[m]||0)+state.log[k].min;});return Math.max(0,...Object.values(by));}
+const BADGES=[
+  ['first','🌱','First workout','Log your first workout',()=>nWork()>=1],
+  ['w5','💪','5 workouts','Log 5 workouts',()=>nWork()>=5],
+  ['w25','🏅','25 workouts','Log 25 workouts',()=>nWork()>=25],
+  ['goal','🎯','Goal week','Hit your weekly goal',()=>goalStats().any],
+  ['g4','🔥','4 weeks in a row','Hit your goal 4 weeks running',()=>goalStats().best>=4],
+  ['m150','🏆','150-minute week','150 minutes in one week',()=>maxWeekMins()>=150],
+  ['m500','⏱️','500 minutes','500 minutes in total',()=>totalAll()>=500],
+  ['test','🧪','Fitness check','Do one fitness check',()=>testCount()>=1],
+  ['pb','📈','Personal best','Beat your last check',()=>hasPB()],
+  ['rest','😴','Smart rest','Use a rest pass',()=>Object.keys(state.rest||{}).length>0]
+];
+const earnedIds=()=>state.profile?BADGES.filter(b=>b[4]()).map(b=>b[0]):[];
+function checkBadges(){
+  const now=earnedIds(),old=state.badges||[],nw=BADGES.filter(b=>now.includes(b[0])&&!old.includes(b[0]));
+  state.badges=now;save();return nw.length?nw[0][1]+' '+nw[0][2]:'';
+}
+const SHARES=[
+  '{n} moved for {m} minutes this week 💪 My couch has filed a formal complaint.',
+  '{m} minutes of workouts this week. My knees say “ouch”, my heart says “thank you” ❤️',
+  '{n} hit {c} of {g} workouts this week 🎉 Not bad for someone who “doesn’t do exercise.”',
+  '{m} minutes this week and still smiling 😎 Tiny steps, big plans.',
+  'Weekly report: {m} minutes, {c} workouts, zero excuses (okay, two small ones) 😅'
+];
+function shareText(wm){
+  return SHARES[shareIdx%SHARES.length].replace(/\{m\} minutes/g,wm.t+(wm.t===1?' minute':' minutes')).replace(/\{n\}/g,nm()).replace(/\{m\}/g,wm.t).replace(/\{c\}/g,wm.c).replace(/\{g\}/g,weekGoal());
+}
+function winCard(wm,p){
+  const earned=earnedIds();
+  let h='<div class="card stack">';
+  if(wm.t>0){
+    const emo=BADGES.filter(b=>earned.includes(b[0])).slice(-3).map(b=>b[1]).join(' ');
+    const txt=shareText(wm),canShare=typeof navigator!=='undefined'&&!!navigator.share;
+    h+='<div class="win"><p class="eyebrow">Weekly win</p><h3>'+esc(p.name)+'’s week 🏆</h3><div class="hero">'+wm.t+'<span style="font-size:20px;font-weight:600"> min</span></div><p>'+wm.c+' of '+weekGoal()+' workouts'+(emo?' · '+emo:'')+'</p></div>'+
+      '<div class="bubble">'+esc(txt)+'</div><div class="sharebtns">'+
+      '<a class="btn" href="https://wa.me/?text='+encodeURIComponent(txt)+'" target="_blank" rel="noopener">WhatsApp</a>'+
+      '<a class="btn ghost" href="sms:?&body='+encodeURIComponent(txt)+'">Text message</a>'+
+      '<button type="button" class="btn ghost" data-act="copyshare">Copy</button>'+
+      '<button type="button" class="btn ghost" data-act="shuffle">Another joke 🎲</button>'+
+      (canShare?'<button type="button" class="btn ghost" style="grid-column:1/-1" data-act="nshare">Share…</button>':'')+'</div>';
+  }else{
+    h+='<div><h3>Weekly win</h3><p class="muted small" style="margin-top:4px">Finish a workout and your shareable weekly win card appears here.</p></div>';
+  }
+  h+='<div><h3 style="margin-bottom:10px">Badges</h3><div class="bgrid">'+BADGES.map(b=>'<div class="bd'+(earned.includes(b[0])?'':' lock')+'"><i>'+b[1]+'</i><b>'+esc(b[2])+'</b><span>'+esc(b[3])+'</span></div>').join('')+'</div></div></div>';
+  return h;
+}
+const walkUnit=()=>state.profile&&state.profile.unit==='lb'?'feet':'metres';
+const TESTS={
+  chair:{n:'30-second chair stand',emoji:'🪑',mode:'count',secs:30,
+    how:'Sit on a sturdy chair with your back against a wall so it cannot slide. Cross your arms over your chest. When you press Start, stand all the way up and sit back down as many times as you can in 30 seconds. Tap the big button each time you stand.',
+    safety:'Stop if you feel dizzy, short of breath or any pain. Keep the chair against a wall, and have someone nearby if you can.'},
+  balance:{n:'Single-leg balance',emoji:'🦩',mode:'hold',secs:60,
+    how:'Stand next to a counter or wall you can grab. Put your hands on your hips. Press Start, lift one foot a few inches off the floor, and hold as long as you can, up to 60 seconds. Tap the button the moment your foot touches down or you grab on.',
+    safety:'Stay within arm’s reach of something sturdy, and wear flat shoes or go barefoot. Stop if you feel dizzy or unsteady.'},
+  walk:{n:'6-minute walk',emoji:'🚶',mode:'walk',secs:360,
+    how:'Pick a flat, safe, straight path such as a hallway or a quiet sidewalk. Press Start and walk briskly but comfortably for 6 minutes, turning around at the ends. You may slow down or rest if you need to. When the beep sounds, stop and work out how far you went. No tape measure? One step is roughly 2.5 feet (0.75 metres).',
+    safety:'Stop if you feel chest pain, dizziness or you cannot catch your breath. Walk where it is safe and have your phone with you.'}
+};
+const unitOf=id=>id==='chair'?'stands':id==='balance'?'sec':(walkUnit()==='feet'?'ft':'m');
+function testMsg(id,v,prev){
+  if(prev===undefined)return 'Baseline saved 🎯 Next month we will compare, and you can watch your numbers climb.';
+  const d=v-prev,a=Math.abs(d),one=a===1;
+  if(d>0)return id==='chair'?'You can stand '+d+' more '+(one?'time':'times')+' than last time! 🎉':id==='balance'?'You held it '+d+' '+(one?'second':'seconds')+' longer than last time! 🎉':'You walked '+d+' '+walkUnit()+' farther than last time! 🎉';
+  if(d===0)return 'Same as last time. Holding steady is a win too 💙';
+  return 'A little lower than last time. Off days happen. Try again next month 🌱';
+}
+function testsCard(){
+  let h='<div class="card stack"><div><h3>Fitness checks</h3><p class="muted small" style="margin-top:4px">Re-test about once a month. Seeing your numbers climb is the best motivation.</p></div><div>';
+  Object.keys(TESTS).forEach(id=>{
+    const T=TESTS[id],arr=testsOf(id),last=arr[arr.length-1],prev=arr[arr.length-2];
+    const days=last?Math.round((startOfDay(new Date())-parseKey(last.d))/86400000):null,due=!last||days>=28;
+    let line=last?'Last: <b>'+last.v+' '+unitOf(id)+'</b> · '+fmtShort(parseKey(last.d)):'Not tested yet';
+    if(prev)line+=' · '+(last.v-prev.v>=0?'+':'')+(last.v-prev.v)+' vs before';
+    h+='<div class="trow"><span class="temo">'+T.emoji+'</span><div style="flex:1;min-width:0"><b>'+T.n+'</b><div class="muted small">'+line+'</div><div class="small">'+(due?'Time for a check ✨':'Next check in '+(28-days)+' days')+'</div></div>'+
+      '<button type="button" class="btn ghost" style="min-height:44px;padding:0 14px" data-act="testopen" data-id="'+id+'">'+(last?'Retest':'Start')+'</button></div>';
+  });
+  return h+'</div><p class="hint">Not medical advice. Skip any check that does not feel right.</p></div>';
+}
+function renderTest(){
+  const t=testing;if(!t){tab='progress';renderProgress();return;}
+  const T=TESTS[t.id],wu=walkUnit();
+  let h='<header class="top"><div><p class="eyebrow">Fitness check</p><h1>'+T.emoji+' '+T.n+'</h1></div></header><div class="stack">';
+  if(t.phase==='intro'){
+    h+='<div class="card stack"><p>'+esc(T.how)+'</p><p class="safety"><b>Safety first.</b> '+esc(T.safety)+'</p>'+
+      '<button type="button" class="btn block" data-act="tstart">Start</button><button type="button" class="linkbtn" data-act="tskip" style="align-self:center">Skip this one</button></div>';
+  }else if(t.phase==='run'){
+    h+='<div class="card stack" style="text-align:center"><div class="tbig" id="tclock">'+(T.mode==='hold'?'0 s':fmtClock(T.secs*1000))+'</div>';
+    if(T.mode==='count')h+='<div class="tbig" style="font-size:48px"><span id="tcnt">'+t.count+'</span> <span style="font-size:20px">stands</span></div><button type="button" class="btn block tcount" data-act="tcount">Tap each time you stand</button>';
+    else if(T.mode==='hold')h+='<button type="button" class="btn block tcount" data-act="tstop">Foot down. Stop</button>';
+    else h+='<p class="muted">Walk briskly and comfortably. A beep sounds at 6 minutes.</p><button type="button" class="btn ghost block" data-act="tstop">Stop early</button>';
+    h+='<button type="button" class="linkbtn" data-act="tskip">Cancel</button></div>';
+  }else if(t.phase==='enter'){
+    const lab=t.id==='chair'?'Stands':t.id==='balance'?'Seconds held':'Distance ('+wu+')';
+    h+='<div class="card stack"><p>'+(t.id==='walk'?'Time is up! 🔔 Enter how far you walked.':'Nice work! Check your number and save it.')+'</p><div class="field"><label for="t-val">'+lab+'</label><input id="t-val" type="number" inputmode="numeric" min="0" value="'+esc(t.val)+'"><p class="err" id="terr"></p></div>'+
+      '<button type="button" class="btn block" data-act="tsave">Save result</button><button type="button" class="linkbtn" data-act="tredo" style="align-self:center">Redo it</button></div>';
+  }else{
+    h+='<div class="card done-card"><h2>Saved ✅</h2><p style="margin-top:8px;font-size:18px">'+esc(t.msg)+'</p>'+(t.nb?'<p style="margin-top:8px"><b>New badge: '+esc(t.nb)+'</b></p>':'')+'</div><button type="button" class="btn block" data-act="tskip">Back to progress</button>';
+  }
+  $('#view').innerHTML=h+'</div>';
+}
+function testTick(){
+  const t=testing,T=TESTS[t.id],el=Date.now()-t.start,c=$('#tclock');
+  if(T.mode==='hold'){if(c)c.textContent=Math.floor(el/1000)+' s';if(el>=T.secs*1000)endRun();}
+  else{const rem=T.secs*1000-el;if(c)c.textContent=fmtClock(Math.max(0,rem)+999);if(rem<=0)endRun();}
+}
+function endRun(){
+  const t=testing,T=TESTS[t.id],el=Date.now()-t.start;
+  beep();t.phase='enter';
+  t.val=T.mode==='count'?t.count:T.mode==='hold'?Math.min(T.secs,Math.round(el/1000)):'';
+  render();
+}
+const MOODS=[['😫','Wiped out',1],['😕','Tough',2],['😐','Okay',3],['🙂','Good',4],['🤩','Amazing',5]];
+function moodRow(){
+  const cur=(state.mood||{})[key(new Date())];
+  return '<div class="mood"><p class="eyebrow">How do you feel?</p><div class="moods">'+MOODS.map(m=>'<button type="button" class="mbtn" data-act="mood" data-v="'+m[2]+'" aria-pressed="'+(cur===m[2])+'" aria-label="'+m[1]+'">'+m[0]+'</button>').join('')+'</div></div>';
+}
+function moodCard(){
+  const m=state.mood||{},ks=Object.keys(m);
+  let body;
+  if(ks.length<6)body='Tap an emoji after each workout and I will show you when you feel best. '+ks.length+' of 6 so far.';
+  else{
+    const sum=[0,0,0,0,0,0,0],n=[0,0,0,0,0,0,0];
+    ks.forEach(k=>{const d=dow(parseKey(k));sum[d]+=m[k];n[d]++;});
+    let best=-1,bs=0;
+    for(let i=0;i<7;i++)if(n[i]>=2&&sum[i]/n[i]>bs){bs=sum[i]/n[i];best=i;}
+    body=best>=0?'You feel best after <b>'+DAYFULL[best]+'</b> workouts '+MOODS[Math.min(4,Math.round(bs)-1)][0]:'Keep logging. Patterns show up after a few repeats on the same day.';
+  }
+  return '<div class="card"><h3 style="margin-bottom:6px">How you feel</h3><p>'+body+'</p></div>';
+}
+const MUSIC={dance:'upbeat dance workout playlist',running:'running playlist upbeat',yoga:'calm yoga music playlist',pilates:'pilates workout music playlist',mobility:'gentle stretching relaxing music',cardio:'cardio workout music playlist'};
+function musicLink(w){
+  const q=MUSIC[w.pk]||'strength workout music playlist';
+  return '<p style="margin-top:10px"><a class="music" href="https://www.youtube.com/results?search_query='+encodeURIComponent(q)+'" target="_blank" rel="noopener">🎵 Playlist for this workout</a></p>';
+}
+function levelCard(){
+  const li=levelInfo(),mk=key(mondayOf(new Date()));
+  if(li.idx<1||state.lvlSeen===mk)return '';
+  let title,text;
+  if(li.c===3){title='Easy week 🌿';text='Every fourth week is lighter: a couple of fewer reps and a bit less time on holds, so your body can recover. Next week you come back stronger.';}
+  else if(li.c===0){title='You’ve levelled up! 🚀 Level '+(li.cyc+1);text='Moves are a bit harder than when you started: about +'+li.add+' reps and +'+(5*li.add)+' seconds on holds.';}
+  else{title='A little more this week 💪';text='About +1 rep and +5 seconds on holds compared with last week.';}
+  return '<div class="card level"><div><p><strong>'+title+'</strong></p><p class="small" style="margin-top:4px">'+text+'</p></div><button type="button" class="linkbtn" data-act="lvlok">Got it</button></div>';
+}
+function goalCard(now,mon){
+  const wm=weekMinutes(mon),g=weekGoal(),used=restUsed(mon),met=wm.c>=1&&wm.c>=g-(used?1:0),tk=key(now);
+  let dots='';
+  for(let i=0;i<g;i++){const on=i<wm.c,ps=!on&&used&&i===g-1;dots+='<span class="gd'+(on?' on':ps?' pass':'')+'">'+(on?'✓':ps?'😴':'')+'</span>';}
+  const woi=weeksOnGoal();
+  let btn='';
+  if(used&&state.rest[key(mon)]===tk)btn='<button type="button" class="linkbtn" data-act="undorest">Undo rest pass</button>';
+  else if(!used&&!met&&!state.log[tk])btn='<button type="button" class="btn ghost" style="min-height:44px;padding:0 14px" data-act="restpass">Use rest pass 😴</button>';
+  return '<div class="card goal"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div><p class="eyebrow">Weekly goal</p><p><strong>'+(met?'Goal hit this week! 🎉':wm.c+' of '+g+' workouts this week')+'</strong></p></div>'+btn+'</div>'+
+    '<div class="dots" aria-hidden="true">'+dots+'</div>'+
+    '<p class="small muted">'+(used?'Rest pass used this week. Your goal is protected.':'You get one rest pass a week. Missing a day is fine.')+(woi>=2?' · '+woi+' weeks in a row 🔥':'')+'</p></div>';
+}
+function hfCard(){
+  return '<div class="card stack"><h3>Hands-free mode</h3><p class="muted small">Big text, one exercise at a time, and automatic rest timers with a beep. Handy when your hands are busy or your eyes are tired.</p><div class="chips"><button type="button" class="tog" data-act="hf" aria-pressed="'+!!state.handsfree+'">Hands-free</button><button type="button" class="tog" data-act="speaktog" aria-pressed="'+!!state.speak+'">Spoken cues</button></div><p class="hint">Spoken cues read each exercise aloud using your phone’s built-in voice. Turn your volume up.</p></div>';
+}
+function focusCard(w,s){
+  const nxt=w.steps.find(x=>!s.checked.includes(x.id));
+  if(!nxt)return '<div class="focus"><h2>All done! 🎉</h2><p>Tap Finish below to log your workout.</p></div>';
+  if(restEnd>0)return '<div class="focus"><p class="eyebrow">Rest</p><div class="tbig" id="restclock">'+fmtClock(Math.max(0,restEnd-Date.now())+999)+'</div><p style="text-align:center">'+esc(restLabel)+'</p><button type="button" class="btn ghost block" data-act="skiprest">Skip rest</button></div>';
+  const sets=(nxt.m&&nxt.m.sets)||1,k=hfSets[nxt.id]||0,i=w.steps.indexOf(nxt)+1;
+  return '<div class="focus"><p class="eyebrow">Now · '+i+' of '+w.steps.length+(sets>1?' · set '+(k+1)+' of '+sets:'')+'</p><h2>'+esc(nxt.name)+'</h2><p class="scheme">'+esc(nxt.scheme)+'</p><p class="cue">'+esc(nxt.cue)+'</p>'+
+    '<button type="button" class="btn good block" data-act="hfdone">'+(k+1<sets?'Set '+(k+1)+' done':'Done, next ➜')+'</button></div>';
+}
+function beep(){
+  try{
+    const A=window.AudioContext||window.webkitAudioContext;
+    if(A){actx=actx||new A();if(actx.resume)actx.resume();
+      [0,0.28].forEach(t=>{const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=880;g.gain.value=0.2;o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+t);o.stop(actx.currentTime+t+0.18);});}
+    if(navigator.vibrate)navigator.vibrate([200,100,200]);
+  }catch(e){}
+}
+function speak(t){
+  if(!state.speak||typeof speechSynthesis==='undefined')return;
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.rate=0.95;speechSynthesis.speak(u);}catch(e){}
+}
+const announce=st=>{if(st)speak(st.name+'. '+st.scheme+'. '+st.cue);};
+function startRest(sec,label,say2){restEnd=Date.now()+sec*1000;restLabel=label;restSay=say2;render();}
+function keepDraft(){if(draft&&$('#f-name'))readForm();}
 
 /* ---------- ui helpers ---------- */
 const $=s=>document.querySelector(s);
@@ -802,16 +1063,18 @@ function renderToday(){
   const mon=mondayOf(now),created=parseKey(p.created||tk);
   const sel=viewDay===null?dow(now):viewDay,isToday=sel===dow(now);
   const w=plan[sel],log=state.log[key(addDays(mon,sel))];
-  const wm=weekMinutes(mon),sn=streak();
+  const wm=weekMinutes(mon);
   let h='<header class="top"><div><p class="eyebrow">'+esc(now.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'}))+'</p><h1>'+(p.name?'Hey '+esc(p.name):'Today')+'</h1></div>'+
-    '<div class="streak" title="Current streak">🔥 '+sn+'</div></header>';
+    '<div class="streak" title="Workouts this week">🎯 '+wm.c+'/'+weekGoal()+'</div></header>';
   h+='<div class="week" aria-label="This week">';
   for(let i=0;i<7;i++){
-    const d=addDays(mon,i),l=state.log[key(d)],sched=p.days.includes(i),past=d<startOfDay(now)&&d>=created;
-    const cls=l?'done':sched?(past?'missed':'plan'):'rest';
-    h+='<button type="button" class="wd '+cls+(i===dow(now)?' today':'')+(i===sel?' sel':'')+'" data-act="day" data-day="'+i+'" aria-pressed="'+(i===sel)+'" aria-label="'+DAYFULL[i]+(sched?', workout day':', rest day')+'"><span>'+DAYS[i]+'</span><i>'+(l?'✓':sched?(past?'–':'•'):'')+'</i></button>';
+    const d=addDays(mon,i),l=state.log[key(d)],sched=p.days.includes(i),past=d<startOfDay(now)&&d>=created,pd=!l&&state.rest&&state.rest[key(mon)]===key(d);
+    const cls=l?'done':pd?'pass':sched?(past?'missed':'plan'):'rest';
+    h+='<button type="button" class="wd '+cls+(i===dow(now)?' today':'')+(i===sel?' sel':'')+'" data-act="day" data-day="'+i+'" aria-pressed="'+(i===sel)+'" aria-label="'+DAYFULL[i]+(sched?', workout day':', rest day')+'"><span>'+DAYS[i]+'</span><i>'+(l?'✓':pd?'😴':sched?(past?'–':'•'):'')+'</i></button>';
   }
   h+='</div><div class="stack">';
+  if(isToday)h+=levelCard();
+  h+=goalCard(now,mon);
   const lastMon=addDays(mon,-7),lw=weekMinutes(lastMon);
   if(lw.t>0&&state.dismissed!==key(lastMon)){
     h+='<div class="card recap"><div><p class="eyebrow">Last week</p><p><strong>'+lw.t+' min</strong> across '+lw.c+' workout'+(lw.c===1?'':'s')+(lw.est?' (some estimated)':'')+'. Nice work 🙌</p></div><button type="button" class="linkbtn" data-act="dismiss">Dismiss</button></div>';
@@ -823,7 +1086,7 @@ function renderToday(){
       h+='<h2>Rest day 🧘</h2><p class="muted" style="margin-top:8px">'+(log?'You still logged '+log.min+' min. Bonus points! 🌟':'No workout planned.')+'</p>';
     }else{
       h+='<h2>'+esc(w.title)+'</h2><p class="tag">'+esc(w.tag)+'</p><div class="meta"><span class="pill">'+w.min+' min</span><span class="pill">'+w.level+'</span>'+
-        (log?'<span class="pill" style="background:var(--good-soft)">Done · '+log.min+' min ✓</span>':(past&&sd>=created)?'<span class="pill">Missed</span>':'')+'</div><p class="note">'+esc(w.note)+'</p>'+swapNote(sel)+stepsHtml(w,null,true,!log);
+        (log?'<span class="pill" style="background:var(--good-soft)">Done · '+log.min+' min ✓</span>':(past&&sd>=created)?'<span class="pill">Missed</span>':'')+'</div><p class="note">'+esc(w.note)+'</p>'+musicLink(w)+swapNote(sel)+stepsHtml(w,null,true,!log);
     }
     h+='<div class="cta"><button type="button" class="btn ghost block" data-act="day" data-day="'+dow(now)+'">Back to today</button></div></section>';
   }else if(!w){
@@ -834,18 +1097,20 @@ function renderToday(){
     h+='<p class="muted small">This week so far: <strong>'+wm.t+' min</strong></p>';
   }else if(log){
     h+='<div class="card done-card"><p class="eyebrow">'+esc(w.title)+'</p><h2>Workout done, '+esc(p.name)+'! 🎉</h2><div class="big">'+log.min+' min</div>'+
-      '<p>'+(log.est?'Marked done without the timer, so this is the planned time.':'Timed from start to finish.')+' Streak: <strong>'+sn+' day'+(sn===1?'':'s')+'</strong> 🔥</p>'+
-      '<p style="margin-top:10px" class="muted">'+esc(say(state.lastMeme||MEMES[0]))+'</p>'+
+      '<p>'+(log.est?'Marked done without the timer, so this is the planned time.':'Timed from start to finish.')+' This week: <strong>'+wm.c+' of '+weekGoal()+'</strong> workouts 🎯</p>'+
+      '<p style="margin-top:10px" class="muted">'+esc(say(state.lastMeme||MEMES[0]))+'</p>'+moodRow()+
       '<button type="button" class="linkbtn" data-act="undo" style="margin-top:8px">Undo</button></div>';
     h+='<details><summary>Today’s session</summary>'+stepsHtml(w,null,true)+'</details>';
   }else{
     const s=todaySession(w),total=w.steps.length,dn=s?s.checked.length:0;
     h+='<section class="card plan"><p class="eyebrow">Today</p><h2>'+esc(w.title)+'</h2><p class="tag">'+esc(w.tag)+'</p>'+
       '<div class="meta"><span class="pill">'+w.min+' min</span><span class="pill">'+w.level+'</span>'+(p.age>=60?'<span class="pill">Joint-friendly</span>':'')+'<span class="pill">'+(w.gear&&w.gear.length?esc(w.gear.map(g=>EQLABEL[g]||g).slice(0,2).join(' + ')):'Bodyweight')+'</span></div>'+
-      '<p class="note">'+esc(w.note)+'</p>';
+      '<p class="note">'+esc(w.note)+'</p>'+musicLink(w);
     if(s){h+='<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="'+total+'" aria-valuenow="'+dn+'"><b style="width:'+Math.round(dn/total*100)+'%"></b></div><p class="small muted" style="margin-top:6px">'+dn+' of '+total+' done</p>';}
+    if(s&&state.handsfree)h+=focusCard(w,s);
     h+=swapNote(sel)+stepsHtml(w,s,false,true);
     if(!s)h+='<div class="cta"><button type="button" class="btn block" data-act="start">Start workout ⏱️</button><button type="button" class="linkbtn" data-act="quick">Already did it? Mark done</button></div>';
+    h+='<button type="button" class="linkbtn" data-act="hf" style="margin-top:8px">'+(state.handsfree?'Turn off hands-free mode':'Try hands-free mode')+'</button>';
     h+='</section><p class="muted small">This week so far: <strong>'+wm.t+' min</strong></p>';
   }
   h+='<button type="button" class="linkbtn" data-act="tab" data-tab="profile" style="align-self:flex-start">Change my styles, days or workout time</button>';
@@ -862,7 +1127,8 @@ function renderProgress(){
   let h='<header class="top"><div><p class="eyebrow">Progress</p><h1>This week</h1></div></header><div class="stack">';
   h+='<div class="card"><div class="hero">'+wm.t+'<span style="font-size:20px;font-weight:600"> min</span></div><p class="muted" style="margin:8px 0 10px">'+(wm.est?'Includes estimated minutes. ':'')+'Planned: '+planned+' min</p>'+
     '<div class="progress"><b style="width:'+Math.min(100,Math.round(wm.t/Math.max(planned,1)*100))+'%"></b></div></div>';
-  h+='<div class="stats"><div class="stat"><b>'+wm.c+'/'+p.days.length+'</b><span>workouts</span></div><div class="stat"><b>'+streak()+'</b><span>day streak</span></div><div class="stat"><b>'+totalAll()+'</b><span>total min</span></div></div>';
+  h+='<div class="stats"><div class="stat"><b>'+wm.c+'/'+p.days.length+'</b><span>workouts</span></div><div class="stat"><b>'+weeksOnGoal()+'</b><span>weeks on goal</span></div><div class="stat"><b>'+totalAll()+'</b><span>total min</span></div></div>';
+  h+=winCard(wm,p)+testsCard()+moodCard();
   const mins=[];for(let i=0;i<7;i++){const l=state.log[key(addDays(mon,i))];mins.push(l?l.min:0);}
   const mx=Math.max(30,...mins);
   h+='<div class="card"><h3>Minutes per day</h3><div class="bars">'+mins.map((m,i)=>'<div class="col"><span class="v">'+(m||'')+'</span><div class="b'+(m?'':' zero')+'" style="height:'+Math.max(3,Math.round(m/mx*86))+'px"></div><span>'+DAYS[i]+'</span></div>').join('')+'</div></div>';
@@ -882,7 +1148,7 @@ function renderProfile(){
   const first=!state.profile;
   if(!draft)draft=state.profile?JSON.parse(JSON.stringify(state.profile)):{name:'',age:'',weight:'',unit:'kg',goals:['fat'],styles:['bodyweight'],level:'beginner',len:30,equip:[],injuries:[],days:[0,2,4],time:'18:00'};
   const d=draft;
-  let h='<header class="top"><div><p class="eyebrow">'+(first?'Welcome':'Profile')+'</p><h1>'+(first?'Build my plan':'My plan')+'</h1></div></header>'+(state.profile&&!state.profile.name?'<p class="err" style="margin:-6px 0 14px">Please add your first name to continue.</p>':first?'':'<p class="muted small" style="margin:-6px 0 14px">Change your styles, days, time or anything else, then save. Your plan updates right away and your history is kept.</p>')+'<form class="stack" id="pf" novalidate><p class="hint">Fields marked <span class="req">*</span> are required.</p>';
+  let h=(first?'<div class="brand"><img src="'+BRAND_ICON+'" alt="" width="56" height="56"><div><div class="bname">Sweat &amp; Smile</div><div class="btag">Small moves. Big smiles.</div></div></div>':'')+'<header class="top"><div><p class="eyebrow">'+(first?'Welcome':'Profile')+'</p><h1>'+(first?'Build my plan':'My plan')+'</h1></div></header>'+(state.profile&&!state.profile.name?'<p class="err" style="margin:-6px 0 14px">Please add your first name to continue.</p>':first?'':'<p class="muted small" style="margin:-6px 0 14px">Change your styles, days, time or anything else, then save. Your plan updates right away and your history is kept.</p>')+'<form class="stack" id="pf" novalidate><p class="hint">Fields marked <span class="req">*</span> are required.</p>';
   h+='<div class="card stack">'+
    '<div class="field"><label for="f-name">First name <span class="req">*</span></label><input id="f-name" type="text" maxlength="24" autocomplete="given-name" required aria-required="true" value="'+esc(d.name)+'"><p class="err" id="e-name"></p></div>'+
    '<div class="row"><div class="field" style="flex:1"><label for="f-age">Age <span class="req">*</span></label><input id="f-age" required aria-required="true" type="number" inputmode="numeric" min="10" max="99" placeholder="e.g. 34" value="'+esc(d.age)+'"></div>'+
@@ -900,12 +1166,12 @@ function renderProfile(){
   h+='<div class="card stack">'+
    '<div class="field"><span class="lbl">Workout days <span class="req">*</span></span>'+chipRow('days',DAYS.map((x,i)=>[i,x]),d.days)+'<p class="hint" id="daycount"></p><p class="err" id="e-days"></p></div>'+
    '<div class="field"><label for="f-time">Usual workout time <span class="req">*</span></label><input id="f-time" type="time" required aria-required="true" value="'+esc(d.time)+'"><p class="err" id="e-time"></p></div></div>';
-  h+='<p class="err" id="formerr" role="alert"></p><button type="submit" class="btn block">'+(first?'Next':'Save changes')+'</button></form>';
+  h+='<p class="err" id="formerr" role="alert"></p><button type="submit" class="btn block">'+(first?'Next':'Save changes')+'</button></form><p class="hint" style="text-align:center;margin-top:8px">App version '+VER+'</p>';
   if(!first){
     h+='<div class="stack" style="margin-top:16px"><div class="card stack"><h3>Workout reminders</h3>'+
       '<p class="muted small">Saved plan: '+state.profile.days.slice().sort((a,b)=>a-b).map(i=>DAYS[i]).join(', ')+' at '+fmt12(state.profile.time)+', with a reminder 15 minutes before.</p>'+
       '<button type="button" class="btn ghost block" data-act="calopen">Set up calendar reminders</button></div>'+
-      swappedCard()+'<div class="card stack"><h3>Your data</h3><p class="muted small">Your profile and progress are saved only in this browser on this device.</p>'+
+      swappedCard()+hfCard()+'<div class="card stack"><h3>Your data</h3><p class="muted small">Your profile and progress are saved only in this browser on this device.</p>'+
       '<button type="button" class="btn ghost block" data-act="reset" id="resetbtn">Erase my data</button></div></div>';
   }
   $('#view').innerHTML=h;
@@ -952,7 +1218,8 @@ function renderDock(){
 }
 function render(){
   if(!state.profile||!state.profile.name)tab='profile';
-  if(tab==='today')renderToday();else if(tab==='progress')renderProgress();else if(tab==='calendar')renderCalendar();else renderProfile();
+  document.body.classList.toggle('hf',!!state.handsfree);
+  if(tab==='today')renderToday();else if(tab==='progress')renderProgress();else if(tab==='calendar')renderCalendar();else if(tab==='test')renderTest();else renderProfile();
   renderDock();
 }
 
@@ -962,10 +1229,11 @@ function complete(w,min,est){
   const tk=key(new Date());
   state.log[tk]={min,est:!!est,title:w.title};
   state.session=null;state.lastMeme=pick(MEMES);save();
-  tab='today';viewDay=null;render();confetti();toast(pick(ENC_DONE));window.scrollTo(0,0);
+  restEnd=0;hfSets={};const nb=checkBadges();
+  tab='today';viewDay=null;render();confetti();toast(nb?'New badge: '+nb:pick(ENC_DONE));window.scrollTo(0,0);
 }
 const actions={
-  tab(el){tab=el.dataset.tab;viewDay=null;lastSwap=null;if(tab!=='profile')draft=null;render();window.scrollTo(0,0);},
+  tab(el){tab=el.dataset.tab;viewDay=null;lastSwap=null;testing=null;if(tab!=='profile')draft=null;render();window.scrollTo(0,0);},
   down(el){
     const id=el.dataset.id;state.disliked=state.disliked||[];
     if(state.disliked.includes(id))return;
@@ -987,6 +1255,51 @@ const actions={
     changeDislikes(()=>{state.disliked=(state.disliked||[]).filter(x=>x!==id);});
     render();toast('Brought back ✅');
   },
+  restpass(){
+    const mon=mondayOf(new Date());state.rest=state.rest||{};
+    if(state.rest[key(mon)])return;
+    if(state.log[key(new Date())]){toast('You already worked out today 🎉');return;}
+    state.rest[key(mon)]=key(new Date());const nb=checkBadges();render();
+    toast(nb?'New badge: '+nb:'Rest pass used. Your goal is protected 😴');
+  },
+  undorest(){const mon=key(mondayOf(new Date()));if(state.rest)delete state.rest[mon];save();render();toast('Rest pass undone');},
+  lvlok(){state.lvlSeen=key(mondayOf(new Date()));save();render();},
+  mood(el){state.mood=state.mood||{};state.mood[key(new Date())]=Number(el.dataset.v);save();render();toast('Thanks for checking in 💙');},
+  shuffle(){shareIdx++;render();},
+  copyshare(){
+    const t=shareText(weekMinutes(mondayOf(new Date())));
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>toast('Copied. Paste it anywhere 📋'),()=>toast('Could not copy. Select the message and copy it.'));
+    else toast('Could not copy. Select the message and copy it.');
+  },
+  nshare(){try{navigator.share({text:shareText(weekMinutes(mondayOf(new Date())))});}catch(e){}},
+  testopen(el){testing={id:el.dataset.id,phase:'intro',count:0,val:''};tab='test';render();window.scrollTo(0,0);},
+  tstart(){testing.phase='run';testing.start=Date.now();testing.count=0;render();},
+  tcount(){testing.count++;const e=$('#tcnt');if(e)e.textContent=testing.count;},
+  tstop(){endRun();},
+  tskip(){testing=null;tab='progress';render();window.scrollTo(0,0);},
+  tredo(){testing.phase='intro';render();},
+  tsave(){
+    const t=testing,inp=$('#t-val'),v=Math.round(Number(inp.value)),mx={chair:60,balance:120,walk:3000}[t.id];
+    if(inp.value===''||!(v>=0&&v<=mx)){$('#terr').textContent='Enter a number from 0 to '+mx+'.';return;}
+    state.tests=state.tests||{};const arr=state.tests[t.id]=state.tests[t.id]||[];
+    const prev=arr.length?arr[arr.length-1].v:undefined;
+    arr.push({d:key(new Date()),v});
+    t.msg=testMsg(t.id,v,prev);t.phase='done';t.nb=checkBadges();save();render();
+    if(prev!==undefined&&v>prev)confetti();
+  },
+  hf(){keepDraft();state.handsfree=!state.handsfree;restEnd=0;save();render();toast(state.handsfree?'Hands-free mode on 🙌':'Hands-free mode off');},
+  speaktog(){keepDraft();state.speak=!state.speak;save();render();if(state.speak)speak('Spoken cues are on.');},
+  skiprest(){restEnd=0;render();},
+  hfdone(){
+    const w=curWorkout(),s=todaySession(w);if(!s)return;
+    const nxt=w.steps.find(x=>!s.checked.includes(x.id));if(!nxt)return;
+    const sets=(nxt.m&&nxt.m.sets)||1,k=(hfSets[nxt.id]||0)+1;
+    if(k<sets){hfSets[nxt.id]=k;startRest(nxt.rest||30,'Next: set '+(k+1)+' of '+sets+', '+nxt.name,'Rest over. Set '+(k+1)+' of '+sets+'.');return;}
+    delete hfSets[nxt.id];
+    actions.step({dataset:{id:nxt.id}});
+    const after=w.steps.find(x=>!s.checked.includes(x.id));
+    if(after){if(nxt.rest>0)startRest(15,'Next up: '+after.name,'Rest over. Next up: '+after.name+'. '+after.scheme);else announce(after);}
+  },
   dlics(){
     const blob=new Blob([buildICS(state.profile,getPlan())],{type:'text/calendar;charset=utf-8'});
     const url=URL.createObjectURL(blob),a=document.createElement('a');
@@ -997,7 +1310,7 @@ const actions={
   calopen(){calMode='update';draft=null;tab='calendar';render();window.scrollTo(0,0);},
   calcontinue(){tab='today';viewDay=null;render();window.scrollTo(0,0);},
   day(el){const d=Number(el.dataset.day);viewDay=d===dow(new Date())?null:d;render();},
-  start(){const w=curWorkout();state.session={date:key(new Date()),sig:w.sig,acc:0,runStart:Date.now(),checked:[]};save();render();toast('Timer started. Let’s go! 💥');},
+  start(){const w=curWorkout();state.session={date:key(new Date()),sig:w.sig,acc:0,runStart:Date.now(),checked:[]};save();render();toast('Timer started. Let’s go! 💥');hfSets={};restEnd=0;if(state.handsfree)announce(curWorkout().steps[0]);},
   pause(){const s=state.session;s.acc+=Date.now()-s.runStart;s.runStart=null;save();renderDock();},
   resume(){state.session.runStart=Date.now();save();renderDock();},
   step(el){
@@ -1025,7 +1338,7 @@ const actions={
   },
   reset(el){
     if(el.dataset.armed!=='1'){el.dataset.armed='1';el.textContent='Tap again to erase everything';return;}
-    state={profile:null,log:{},session:null,dismissed:null,disliked:[]};lastSwap=null;planCache=null;draft=null;save();tab='profile';render();
+    state={profile:null,log:{},session:null,dismissed:null,disliked:[],rest:{},tests:{},mood:{},badges:[],lvlSeen:null,handsfree:false,speak:false};testing=null;restEnd=0;hfSets={};lastSwap=null;planCache=null;draft=null;save();tab='profile';render();
   }
 };
 function readForm(){
@@ -1061,6 +1374,15 @@ function saveProfile(){
   render();window.scrollTo(0,0);
   if(prev&&!changed)toast('Plan updated ✅');
 }
+function runSave(){
+  try{saveProfile();}catch(err){
+    const g=$('#formerr');
+    if(g){g.textContent='Something went wrong saving this: '+(err&&err.message||err)+'. Please tell the person who shared this app.';g.scrollIntoView({block:'center'});}
+    else toast('Something went wrong: '+(err&&err.message||err));
+  }
+}
+const VER='v13';
+const BRAND_ICON='data:image/png;base64,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';
 function init(){
   document.addEventListener('click',e=>{
     const chip=e.target.closest('.chip');
@@ -1071,13 +1393,20 @@ function init(){
       if(g==='days')updateDayCount();if(g==='days'||g==='len')updateFact();const er=$('#e-'+g);if(er)er.textContent='';
       return;
     }
+    const sb=e.target.closest('#pf button[type=submit]');
+    if(sb){e.preventDefault();runSave();return;}
     const el=e.target.closest('[data-act]');
     if(el&&actions[el.dataset.act])actions[el.dataset.act](el);
   });
-  document.addEventListener('submit',e=>{if(e.target.id==='pf'){e.preventDefault();saveProfile();}});
+  document.addEventListener('submit',e=>{if(e.target.id==='pf'){e.preventDefault();runSave();}});
   document.addEventListener('input',e=>{if(e.target.id==='f-age')updateAgeHint();const id=e.target.id||'';if(id.indexOf('f-')===0){const k=id.slice(2),er=$('#e-'+k);if(er)er.textContent='';e.target.setAttribute('aria-invalid','false');}});
   if(state.session&&state.session.date!==key(new Date()))state.session=null;
-  tick=setInterval(()=>{const c=$('#clock');if(c&&state.session&&state.session.runStart)c.textContent=fmtClock(elapsed(state.session));},1000);
+  if(state.profile&&!state.badges)state.badges=earnedIds();
+  tick=setInterval(()=>{
+    const c=$('#clock');if(c&&state.session&&state.session.runStart)c.textContent=fmtClock(elapsed(state.session));
+    if(restEnd){if(Date.now()>=restEnd){restEnd=0;beep();speak(restSay);render();}else{const r=$('#restclock');if(r)r.textContent=fmtClock(restEnd-Date.now()+999);}}
+    if(testing&&testing.phase==='run')testTick();
+  },250);
   render();
 }
 if(typeof window!=='undefined'&&window.document)init();
